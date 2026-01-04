@@ -1,5 +1,11 @@
 <?php 
-// استدعاء ملف الهيدر (يحتوي على config.php وربط CSS)
+require_once('includes/db_connect.php');
+require_once('includes/config.php');
+require_once('includes/functions.php');
+
+$stmt = $pdo->query("SELECT * FROM chalets WHERE status = 'active' ORDER BY rating DESC LIMIT 6");
+$chalets = $stmt->fetchAll();
+
 require_once('partials/header.php'); 
 ?>
 
@@ -79,62 +85,35 @@ require_once('partials/header.php');
         
         <div class="chalet-grid">
             
+            <?php if (empty($chalets)): ?>
+            <div style="grid-column: span 3; text-align: center; padding: 60px 20px;">
+                <p style="font-size: 3rem; margin-bottom: 20px;">🏠</p>
+                <h3 style="color: var(--text); margin-bottom: 10px;"><?php echo ($lang == 'ar') ? 'لا توجد شاليهات متاحة حالياً' : 'No chalets available yet'; ?></h3>
+            </div>
+            <?php else: ?>
+            
+            <?php foreach ($chalets as $chalet): ?>
             <div class="chalet-card">
-                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=500');"></div>
+                <div class="card-image" style="background-image: url('<?php echo $chalet['image_url'] ?: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=500'; ?>');"></div>
                 <div class="card-details">
-                    <h3>شاليه النسيم</h3>
-                    <p class="card-location">📍 الرياض، الثمامة</p>
-                    <div class="rating">⭐ 4.8 (50 <?php echo __('reviews'); ?>)</div>
+                    <h3><?php echo ($lang == 'ar') ? $chalet['name_ar'] : ($chalet['name_en'] ?: $chalet['name_ar']); ?></h3>
+                    <p class="card-location">📍 <?php echo $chalet['location']; ?></p>
+                    <div class="rating">⭐ <?php echo number_format($chalet['rating'], 1); ?> (<?php echo $chalet['reviews_count']; ?> <?php echo __('reviews'); ?>)</div>
                     
                     <div class="card-footer">
                         <div class="price-info">
                             <span style="font-size: 1.3rem; font-weight: bold; color: var(--primary);">
-                                <?php echo formatPrice(1200); ?>
+                                <?php echo formatPrice($chalet['price']); ?>
                             </span>
                             <span style="font-size: 0.8rem; opacity: 0.7;">/ <?php echo __('night'); ?></span>
                         </div>
-                        <a href="chalet-details.php?id=1" class="btn-book"><?php echo __('book_now'); ?></a>
+                        <a href="chalet-details.php?id=<?php echo $chalet['id']; ?>" class="btn-book"><?php echo __('book_now'); ?></a>
                     </div>
                 </div>
             </div>
-
-            <div class="chalet-card">
-                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=500');"></div>
-                <div class="card-details">
-                    <h3>منتجع العمارية هيلز</h3>
-                    <p class="card-location">📍 الرياض، العمارية</p>
-                    <div class="rating">⭐ 4.9 (120 <?php echo __('reviews'); ?>)</div>
-                    
-                    <div class="card-footer">
-                        <div class="price-info">
-                            <span style="font-size: 1.3rem; font-weight: bold; color: var(--primary);">
-                                <?php echo formatPrice(2500); ?>
-                            </span>
-                            <span style="font-size: 0.8rem; opacity: 0.7;">/ <?php echo __('night'); ?></span>
-                        </div>
-                        <a href="chalet-details.php?id=2" class="btn-book"><?php echo __('book_now'); ?></a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="chalet-card">
-                <div class="card-image" style="background-image: url('https://images.unsplash.com/photo-1542718610-a1d656d1884c?w=500');"></div>
-                <div class="card-details">
-                    <h3>استراحة الأحلام</h3>
-                    <p class="card-location">📍 جدة، أبحر</p>
-                    <div class="rating">⭐ 4.5 (30 <?php echo __('reviews'); ?>)</div>
-                    
-                    <div class="card-footer">
-                        <div class="price-info">
-                            <span style="font-size: 1.3rem; font-weight: bold; color: var(--primary);">
-                                <?php echo formatPrice(950); ?>
-                            </span>
-                            <span style="font-size: 0.8rem; opacity: 0.7;">/ <?php echo __('night'); ?></span>
-                        </div>
-                        <a href="chalet-details.php?id=3" class="btn-book"><?php echo __('book_now'); ?></a>
-                    </div>
-                </div>
-            </div>
+            <?php endforeach; ?>
+            
+            <?php endif; ?>
 
         </div>
     </section>
