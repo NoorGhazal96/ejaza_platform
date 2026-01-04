@@ -1,0 +1,401 @@
+/* =========================================================
+   ملف التنسيق الشامل (Master Stylesheet) - Ejaza Platform
+   المعايير: Material Design 3 (M3)
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   1. إعدادات المتغيرات والألوان (Root Variables)
+   --------------------------------------------------------- */
+:root[data-theme="light"] {
+    --primary: #057CC8;              /* اللون الأساسي */
+    --secondary: #039F2F;            /* اللون الثانوي */
+    --surface: #fdfbff;              /* خلفية الصفحة */
+    --surface-alt: #ffffff;          /* خلفية البطاقات */
+    --text: #1c1b1f;                 /* لون النص الأساسي */
+    --text-secondary: #707070;       /* لون النص الثانوي */
+    --outline: #79747e;              /* لون الحدود */
+    --shadow: 0 4px 20px rgba(0,0,0,0.08); /* الظل */
+    
+    /* ألوان الحالة */
+    --error: #b3261e;
+    --success: #2e7d32;
+    --warning: #ed6c02;
+}
+
+:root[data-theme="dark"] {
+    --primary: #8ecff9;              /* أزرق فاتح للوضع الليلي */
+    --secondary: #81D68B;
+    --surface: #121212;              /* خلفية داكنة */
+    --surface-alt: #1e1e1e;          /* خلفية العناصر */
+    --text: #e2e2e6;                 /* نص فاتح */
+    --text-secondary: #a0a0a0;
+    --outline: #444;
+    --shadow: 0 4px 20px rgba(0,0,0,0.4);
+    
+    --error: #f2b8b5;
+    --success: #81c784;
+    --warning: #ffb74d;
+}
+
+/* ---------------------------------------------------------
+   2. تنسيقات عامة (Global Resets)
+   --------------------------------------------------------- */
+* {
+    box-sizing: border-box; margin: 0; padding: 0;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
+    transition: background-color 0.3s, color 0.3s, transform 0.3s;
+}
+
+body { background-color: var(--surface); color: var(--text); line-height: 1.6; }
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+/* أزرار عامة */
+.btn-primary, .md-btn-primary {
+    background: var(--primary); color: white; padding: 10px 24px;
+    border-radius: 50px; border: none; cursor: pointer; font-weight: bold;
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    transition: 0.3s;
+}
+.btn-primary:hover { opacity: 0.9; transform: translateY(-2px); }
+
+.icon-btn { background: none; border: none; cursor: pointer; font-size: 1.2rem; margin: 0 8px; color: var(--text); transition: 0.3s; }
+.icon-btn:hover { color: var(--primary); transform: scale(1.1); }
+
+/* حقول الإدخال (Style M3) */
+.m3-input, .m3-textarea, select.m3-input {
+    width: 100%; padding: 12px 16px; border-radius: 12px;
+    border: 1px solid var(--outline); background: var(--surface-alt);
+    color: var(--text); font-size: 0.95rem; outline: none; transition: 0.3s;
+}
+.m3-input:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(5, 124, 200, 0.15); }
+
+/* رفع الملفات */
+.file-upload-wrapper {
+    border: 2px dashed var(--outline); border-radius: 16px; padding: 40px;
+    text-align: center; cursor: pointer; margin-top: 10px; background: var(--surface-alt);
+}
+.file-upload-wrapper:hover { border-color: var(--primary); background: rgba(5, 124, 200, 0.05); }
+
+/* ---------------------------------------------------------
+   3. الهيدر (Header)
+   --------------------------------------------------------- */
+.md-header {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 15px 30px; background: var(--surface-alt);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    position: sticky; top: 0; z-index: 1000;
+}
+
+.logo img { height: 45px; display: block; }
+
+.header-start { display: flex; align-items: center; gap: 30px; }
+.header-end { display: flex; align-items: center; gap: 15px; }
+
+.main-nav { display: flex; gap: 20px; }
+.nav-link { font-weight: 600; font-size: 0.95rem; position: relative; transition: 0.3s; }
+.nav-link:hover { color: var(--primary); }
+.nav-link-btn { background: none; border: none; cursor: pointer; font-size: 0.95rem; font-weight: 500; color: var(--text); padding: 5px; }
+
+/* ---------------------------------------------------------
+   4. الصفحة الرئيسية (Hero & Search)
+   --------------------------------------------------------- */
+.hero-section {
+    background: linear-gradient(135deg, rgba(5, 124, 200, 0.1), rgba(3, 159, 47, 0.1));
+    padding: 80px 0 100px; text-align: center;
+    border-bottom-left-radius: 40px; border-bottom-right-radius: 40px;
+}
+.hero-title { font-size: 2.5rem; color: var(--primary); margin-bottom: 10px; }
+
+/* شريط البحث العائم */
+.search-container-wrapper { max-width: 900px; margin: -50px auto 40px; padding: 0 20px; position: relative; z-index: 100; }
+.search-bar-capsule, .main-search-bar {
+    background: var(--surface-alt); border-radius: 50px; padding: 10px;
+    display: flex; align-items: center; box-shadow: var(--shadow); border: 1px solid var(--outline);
+}
+
+.search-field { display: flex; align-items: center; padding: 5px 20px; position: relative; cursor: pointer; border-radius: 50px; }
+.search-field:hover { background: rgba(0,0,0,0.03); }
+
+.field-location { flex: 2; min-width: 150px; }
+.field-date { flex: 1.5; min-width: 180px; }
+.field-guests { flex: 0.8; min-width: 90px; position: relative; }
+
+.field-icon { font-size: 1.2rem; margin-inline-end: 15px; }
+.field-content { display: flex; flex-direction: column; width: 100%; }
+.field-content label { font-size: 0.75rem; font-weight: bold; color: var(--primary); }
+.field-content input {
+    border: none; background: transparent; outline: none; color: var(--text); width: 100%;
+    font-size: 0.85rem; text-overflow: ellipsis; white-space: nowrap; overflow: hidden;
+}
+
+.divider { width: 1px; height: 35px; background: var(--outline); opacity: 0.3; }
+
+.search-btn-primary {
+    background: var(--primary); color: white; border: none;
+    padding: 0; width: 45px; height: 45px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; cursor: pointer; transition: 0.3s;
+}
+.search-btn-primary:hover { transform: scale(1.05); }
+.search-btn-primary .text { display: none; }
+
+/* ---------------------------------------------------------
+   5. البطاقات والشبكة (Cards & Grid)
+   --------------------------------------------------------- */
+.content-area { flex: 1; min-width: 0; }
+.chalet-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 25px; width: 100%;
+}
+
+.chalet-card, .md-card {
+    background: var(--surface-alt); border-radius: 24px; overflow: hidden;
+    box-shadow: var(--shadow); border: 1px solid var(--outline);
+    transition: transform 0.3s, box-shadow 0.3s;
+    display: flex; flex-direction: column; height: 100%;
+}
+.chalet-card:hover { transform: translateY(-5px); box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+
+.card-image { height: 220px; background-size: cover; background-position: center; position: relative; width: 100%; }
+.badge-price {
+    position: absolute; bottom: 10px; left: 10px; background: rgba(0,0,0,0.7);
+    color: white; padding: 5px 12px; border-radius: 20px; font-size: 0.9rem;
+}
+[dir="rtl"] .badge-price { left: auto; right: 10px; }
+
+.card-details { padding: 20px; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+.card-location { opacity: 0.7; font-size: 0.9rem; margin-bottom: 15px; }
+.card-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--outline); padding-top: 15px; margin-top: 15px; }
+.btn-book { border: 1px solid var(--primary); color: var(--primary); padding: 5px 15px; border-radius: 20px; font-weight: bold; transition: 0.3s; }
+.btn-book:hover { background: var(--primary); color: white; }
+
+/* ---------------------------------------------------------
+   6. الفلاتر والقوائم المنسدلة (Sidebar & Dropdowns)
+   --------------------------------------------------------- */
+.main-layout { display: flex; align-items: flex-start; gap: 30px; margin-top: 40px; width: 100%; }
+.filters-sidebar {
+    width: 280px; flex-shrink: 0; background: var(--surface-alt);
+    padding: 24px; border-radius: 28px; border: 1px solid var(--outline); height: fit-content;
+}
+.filter-label { display: block; font-weight: 600; margin-bottom: 12px; color: var(--primary); }
+.m3-divider { border: 0; border-top: 1px solid var(--outline); opacity: 0.2; margin: 20px 0; }
+.m3-checkbox { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; cursor: pointer; }
+
+/* Dropdowns */
+.dropdown-wrapper { position: relative; display: inline-block; margin-inline-start: 10px; }
+.guest-dropdown, .dropdown-menu {
+    display: none; position: absolute; top: 100%; inset-inline-start: 0; margin-top: 5px;
+    background: var(--surface-alt); min-width: 200px; padding: 15px;
+    border-radius: 16px; border: 1px solid var(--outline); box-shadow: var(--shadow); z-index: 2000;
+}
+.guest-dropdown.show, .dropdown-menu.show { display: block; animation: fadeIn 0.2s ease-in-out; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+
+/* تخصيص قائمة الضيوف */
+.guest-dropdown { min-width: 280px; cursor: default; right: 0; left: auto; }
+[dir="rtl"] .guest-dropdown { right: auto; left: 0; }
+
+.dropdown-menu a { display: block; padding: 10px 15px; border-radius: 8px; font-size: 0.9rem; transition: 0.2s; }
+.dropdown-menu a:hover { background: rgba(5, 124, 200, 0.1); color: var(--primary); }
+
+.guest-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+.counter-controls button {
+    width: 28px; height: 28px; border-radius: 50%; border: 1px solid var(--primary);
+    background: none; cursor: pointer; color: var(--text);
+}
+
+/* ---------------------------------------------------------
+   7. الصفحات الداخلية (Details Page)
+   --------------------------------------------------------- */
+.details-page { padding-top: 40px; }
+.gallery-section {
+    display: grid; grid-template-columns: 2fr 1fr; gap: 15px;
+    height: 450px; margin-bottom: 30px; border-radius: 28px; overflow: hidden;
+}
+.gallery-section div { background-size: cover; background-position: center; }
+
+.details-layout { display: grid; grid-template-columns: 1fr 350px; gap: 40px; }
+.booking-card {
+    background: var(--surface-alt); padding: 24px; border-radius: 28px;
+    border: 1px solid var(--outline); position: sticky; top: 100px; z-index: 90;
+}
+.price-big { font-size: 1.5rem; font-weight: bold; margin: 15px 0; color: var(--primary); }
+.full-width { width: 100%; margin-top: 20px; }
+
+/* الخريطة */
+.map-container {
+    width: 100%; height: 300px; background: #eee; border-radius: 20px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem; color: #888; margin-top: 15px;
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/e/ec/World_map_blank_without_borders.svg');
+    background-size: cover; opacity: 0.8;
+}
+
+/* ---------------------------------------------------------
+   8. أقسام التفاصيل المتقدمة (Host & Reviews - Enhanced)
+   --------------------------------------------------------- */
+.host-enhanced-card {
+    background: var(--surface-alt);
+    border: 1px solid var(--outline); border-radius: 16px; padding: 24px;
+    margin-bottom: 30px; display: flex; align-items: center; justify-content: space-between;
+    gap: 20px; box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.host-info-group { display: flex; align-items: center; gap: 15px; }
+
+.host-avatar-circle {
+    width: 70px; height: 70px; border-radius: 50%; object-fit: cover;
+    border: 2px solid var(--surface); box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.host-text h3 { margin: 0; font-size: 1.1rem; color: var(--text); }
+.host-text p { margin: 0; font-size: 0.85rem; color: var(--text-secondary); margin-top: 5px; }
+
+.host-stats-row { display: flex; gap: 30px; text-align: center; }
+.stat-box-small strong { display: block; font-size: 1.1rem; color: var(--text); }
+.stat-box-small span { font-size: 0.8rem; color: var(--text-secondary); }
+
+.rating-bars-container {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 15px 50px; 
+    margin-bottom: 40px; border-bottom: 1px solid var(--outline); padding-bottom: 40px;
+}
+.rating-line { display: flex; align-items: center; justify-content: space-between; font-size: 0.95rem; }
+.bar-track { width: 120px; height: 4px; background: #e0e0e0; border-radius: 2px; overflow: hidden; margin-inline-start: 10px; }
+.bar-fill { height: 100%; background: var(--text); border-radius: 2px; }
+
+.reviews-enhanced-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 25px; margin-top: 30px;
+}
+
+.review-card-box {
+    background: var(--surface-alt); border: 1px solid var(--outline);
+    border-radius: 16px; padding: 20px; box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+    display: flex; flex-direction: column; transition: transform 0.2s;
+}
+.review-card-box:hover { transform: translateY(-3px); border-color: var(--primary); }
+
+.review-user-row {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 15px;
+    padding-bottom: 12px; border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+.review-user-avatar { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; }
+
+.review-content { font-size: 0.95rem; line-height: 1.6; color: var(--text); flex-grow: 1; }
+
+.owner-reply-box {
+    margin-top: 15px; background: rgba(5, 124, 200, 0.05);
+    padding: 12px 15px; border-radius: 10px; font-size: 0.9rem;
+    border-right: 3px solid var(--primary);
+}
+[dir="ltr"] .owner-reply-box { border-right: none; border-left: 3px solid var(--primary); }
+
+.owner-reply-header {
+    display: flex; align-items: center; gap: 8px; font-weight: bold; margin-bottom: 5px; color: var(--primary);
+}
+.owner-mini-avatar { width: 20px; height: 20px; border-radius: 50%; object-fit: cover; }
+
+/* ---------------------------------------------------------
+   9. صفحات الدخول والتسجيل (Auth)
+   --------------------------------------------------------- */
+.auth-container { min-height: 80vh; display: flex; align-items: center; justify-content: center; padding: 40px 20px; }
+.auth-card {
+    width: 100%; max-width: 450px; padding: 40px; text-align: center;
+    background: var(--surface-alt); border-radius: 28px; box-shadow: var(--shadow); border: 1px solid var(--outline);
+}
+
+/* ---------------------------------------------------------
+   10. لوحات التحكم (Dashboard) - Basic Styles
+   ملاحظة: للحصول على تنسيقات لوحة التحكم الكاملة، يرجى استخدام ملف assets/css/dashboard.css
+   --------------------------------------------------------- */
+.dash-body { background-color: var(--surface); display: flex; min-height: 100vh; }
+.dash-sidebar {
+    width: 260px; background: var(--surface-alt); padding: 25px;
+    border-inline-end: 1px solid var(--outline); display: flex; flex-direction: column;
+}
+.dash-nav a {
+    display: flex; align-items: center; gap: 12px; padding: 12px 15px;
+    margin-bottom: 8px; border-radius: 12px; color: var(--text); font-weight: 500; transition: 0.3s;
+}
+.dash-nav a:hover, .dash-nav a.active { background: var(--primary); color: white; }
+.dash-content { flex: 1; padding: 30px; overflow-y: auto; }
+.dash-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; }
+
+/* ---------------------------------------------------------
+   11. الفوتر (Footer)
+   --------------------------------------------------------- */
+.md-footer {
+    background-color: #1a1c1e; color: #e2e2e6;
+    padding: 60px 0 20px; margin-top: 60px;
+    border-top-left-radius: 28px; border-top-right-radius: 28px;
+}
+.footer-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; }
+.footer-col h3 { font-size: 1.1rem; margin-bottom: 20px; color: var(--primary); }
+.footer-links a { color: #e2e2e6; opacity: 0.8; font-size: 0.95rem; display: block; margin-bottom: 10px; transition: 0.2s; }
+.footer-links a:hover { opacity: 1; color: var(--primary); padding-inline-start: 5px; }
+.footer-divider { border: 0; border-top: 1px solid rgba(255, 255, 255, 0.1); margin: 40px 0 20px; }
+.footer-bottom { text-align: center; font-size: 0.85rem; opacity: 0.6; }
+.social-icons { display: flex; gap: 15px; }
+.social-btn {
+    background: rgba(255, 255, 255, 0.1); width: 40px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%; color: white; transition: 0.3s;
+}
+.social-btn:hover { background: var(--primary); transform: translateY(-3px); }
+:root[data-theme="dark"] .md-footer { background-color: #0d0d0d; border-top: 1px solid #333; }
+
+/* ---------------------------------------------------------
+   12. تخصيص التقويم (Flatpickr)
+   --------------------------------------------------------- */
+.flatpickr-calendar {
+    background: var(--surface-alt) !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15) !important;
+    border: 1px solid var(--outline) !important;
+    border-radius: 20px !important;
+    padding: 10px !important;
+    font-family: 'Segoe UI', sans-serif !important;
+}
+.flatpickr-months .flatpickr-month { background: transparent !important; color: var(--text) !important; fill: var(--text) !important; margin-bottom: 10px; }
+.flatpickr-current-month .flatpickr-monthDropdown-months { font-weight: bold; }
+.flatpickr-day { border-radius: 12px !important; color: var(--text) !important; font-weight: 500; }
+.flatpickr-day:hover { background: rgba(5, 124, 200, 0.1) !important; border-color: transparent !important; }
+.flatpickr-day.selected, .flatpickr-day.startRange, .flatpickr-day.endRange, .flatpickr-day.selected.inRange {
+    background: var(--primary) !important; border-color: var(--primary) !important; color: white !important; box-shadow: none !important;
+}
+.flatpickr-day.inRange {
+    background: rgba(5, 124, 200, 0.1) !important; border-color: transparent !important;
+    box-shadow: -5px 0 0 rgba(5, 124, 200, 0.1), 5px 0 0 rgba(5, 124, 200, 0.1) !important;
+}
+span.flatpickr-weekday { color: var(--text-secondary) !important; font-weight: normal !important; }
+.flatpickr-prev-month, .flatpickr-next-month { fill: var(--primary) !important; }
+:root[data-theme="dark"] .flatpickr-calendar { background: #252525 !important; box-shadow: 0 10px 30px rgba(0,0,0,0.5) !important; }
+
+/* ---------------------------------------------------------
+   13. التجاوب مع الجوال (Responsive)
+   --------------------------------------------------------- */
+@media (max-width: 900px) {
+    .search-bar-capsule, .main-search-bar { flex-direction: column; border-radius: 24px; align-items: stretch; }
+    .divider, .search-divider { display: none; }
+    .search-field, .search-item { border-bottom: 1px solid var(--outline); padding: 15px; }
+    
+    .field-location, .field-date, .field-guests { flex: 1; min-width: auto; }
+    
+    .search-btn-primary, .search-submit-circle { margin: 10px; justify-content: center; width: auto; border-radius: 50px; }
+    .search-btn-primary .text { display: inline-block; } 
+    
+    .host-enhanced-card { flex-direction: column; align-items: flex-start; }
+    .host-stats-row { width: 100%; justify-content: space-between; margin-top: 15px; padding-top: 15px; border-top: 1px solid var(--outline); }
+    .rating-bars-container { grid-template-columns: 1fr; gap: 15px; }
+
+    .md-header { flex-direction: column; gap: 15px; padding: 15px; }
+    .header-start, .header-end { width: 100%; justify-content: center; }
+    .main-nav { gap: 15px; }
+    
+    .main-layout, .details-layout { flex-direction: column; }
+    .filters-sidebar { width: 100%; }
+    .gallery-section { grid-template-columns: 1fr; height: 300px; }
+    .booking-card { position: static; }
+    .dash-body { flex-direction: column; }
+    .dash-sidebar { width: 100%; border-inline-end: none; border-bottom: 1px solid var(--outline); }
+}
