@@ -1,0 +1,36 @@
+I have imported my project "Ejaza Platform" from GitHub. It is a Chalet Booking System using Native PHP.
+
+**Current Status:**
+- The frontend (HTML/CSS) is mostly ready using Material Design 3.
+- The project structure includes `assets/`, `includes/`, `partials/`, `owner/`, `admin/`.
+- I want to use **SQLite** as the database engine (since MySQL is not natively supported easily on Replit).
+
+**Your Mission:**
+Please act as a Senior PHP Backend Developer and complete the entire backend logic. Follow these steps strictly:
+
+### Step 1: Database Setup (`setup_db.php`)
+Create a file named `setup_db.php` to generate a `database.sqlite` file with the following tables:
+1. `users`: (id, full_name, email, password, phone, role [admin/owner/user], status).
+2. `chalets`: (id, owner_id, name_ar, name_en, description_ar, description_en, price, location, image_url, rating, status [active/pending]).
+3. `bookings`: (id, user_id, chalet_id, check_in, check_out, total_price, status).
+*Please insert one Admin user, one Owner user, and one dummy Chalet for testing.*
+
+### Step 2: Database Connection (`includes/db_connect.php`)
+Create/Update this file to connect to `database.sqlite` using PDO.
+
+### Step 3: Implement Missing Logic
+Generate the code for these specific files (overwrite if they exist but are incomplete):
+
+1.  **`register.php`**: Handle user registration (hash password, save to DB).
+2.  **`search.php`**: Handle search logic (filter by location/dates) and display results.
+3.  **`checkout.php`**: Show booking summary (calculate total price based on nights) and confirm booking.
+4.  **`booking-success.php`**: A simple success page after booking.
+5.  **`owner/my-chalets.php`**: Allow owners to view their chalets and delete them.
+6.  **`owner/add-chalet.php`**: Ensure it handles Image Upload correctly to `assets/uploads/` and saves data to DB.
+
+**Coding Rules:**
+- Use `require_once 'includes/db_connect.php';` everywhere.
+- Use Prepared Statements (PDO) to prevent SQL Injection.
+- Maintain the existing UI style (header, footer, CSS).
+
+**Start by giving me the code for `setup_db.php` and `includes/db_connect.php` so I can initialize the database first.**
